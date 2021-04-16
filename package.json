@@ -7,6 +7,7 @@
   "jsnext:main": "es/index.js",
   "unpkg": "dist/swagger-client.browser.min.js",
   "repository": "git@github.com:swagger-api/swagger-js.git",
+  "root": true,
   "contributors": [
     "(in alphabetical order)",
     "Anna Bodnia <anna.bodnia@gmail.com>",
