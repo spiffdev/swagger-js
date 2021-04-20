@@ -14,7 +14,6 @@ env.properties
 local.yaml
 .deps.json
 /.karma
-/lib
 diagrams/
 notes/
 .DS_Store
