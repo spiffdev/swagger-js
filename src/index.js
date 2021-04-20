@@ -3,8 +3,10 @@ import startsWith from 'lodash/startsWith';
 import Url from 'url';
 import Http from './http';
 import { execute } from './execute';
+import Resolver from './resolver';
 
 Swagger.execute = execute;
+Swagger.resolve = Resolver;
 
 function Swagger(url, opts = {}) {
   // Allow url as a separate argument
