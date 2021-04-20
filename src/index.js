@@ -2,25 +2,10 @@ import assign from 'lodash/assign';
 import startsWith from 'lodash/startsWith';
 import Url from 'url';
 
-import Http, { makeHttp, serializeRes, serializeHeaders } from './http';
-import Resolver, { clearCache } from './resolver';
-import resolveSubtree from './subtree-resolver';
-import { makeApisTagOperation } from './interfaces';
-import { execute, buildRequest, baseUrl } from './execute';
-import { opId } from './helpers';
+import Http from './http';
+import { execute } from './execute';
 
-Swagger.http = Http;
-Swagger.makeHttp = makeHttp.bind(null, Swagger.http);
-Swagger.resolve = Resolver;
-Swagger.resolveSubtree = resolveSubtree;
 Swagger.execute = execute;
-Swagger.serializeRes = serializeRes;
-Swagger.serializeHeaders = serializeHeaders;
-Swagger.clearCache = clearCache;
-Swagger.makeApisTagOperation = makeApisTagOperation;
-Swagger.buildRequest = buildRequest;
-Swagger.helpers = { opId };
-Swagger.getBaseUrl = baseUrl;
 
 function Swagger(url, opts = {}) {
   // Allow url as a separate argument
