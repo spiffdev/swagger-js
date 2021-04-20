@@ -47,6 +47,23 @@ Swagger.prototype = {
       ...options,
     });
   },
+  resolve(options = {}) {
+    return Swagger.resolve({
+      spec: this.spec,
+      url: this.url,
+      http: this.http || this.fetch,
+      allowMetaPatches: this.allowMetaPatches,
+      useCircularStructures: this.useCircularStructures,
+      requestInterceptor: this.requestInterceptor || null,
+      responseInterceptor: this.responseInterceptor || null,
+      ...options,
+    }).then((obj) => {
+      this.originalSpec = this.spec;
+      this.spec = obj.spec;
+      this.errors = obj.errors;
+      return this;
+    });
+  },
 };
 
 Swagger.prototype.applyDefaults = function applyDefaults() {
