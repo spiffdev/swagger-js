@@ -7,6 +7,7 @@ import Resolver from './resolver';
 
 Swagger.execute = execute;
 Swagger.resolve = Resolver;
+Swagger.makeApisTagOperation = makeApisTagOperation;
 
 function Swagger(url, opts = {}) {
   // Allow url as a separate argument
