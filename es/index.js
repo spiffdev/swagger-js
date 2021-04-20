@@ -49,25 +49,6 @@ Swagger.prototype = {
       requestInterceptor: this.requestInterceptor || null,
       responseInterceptor: this.responseInterceptor || null
     }, options));
-  },
-  resolve: function resolve() {
-    var _this2 = this;
-
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    return Swagger.resolve(_objectSpread({
-      spec: this.spec,
-      url: this.url,
-      http: this.http || this.fetch,
-      allowMetaPatches: this.allowMetaPatches,
-      useCircularStructures: this.useCircularStructures,
-      requestInterceptor: this.requestInterceptor || null,
-      responseInterceptor: this.responseInterceptor || null
-    }, options)).then(function (obj) {
-      _this2.originalSpec = _this2.spec;
-      _this2.spec = obj.spec;
-      _this2.errors = obj.errors;
-      return _this2;
-    });
   }
 };
 
