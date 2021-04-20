@@ -5,6 +5,7 @@ import Url from 'url';
 import Http from './http';
 import { execute } from './execute';
 import Resolver from './resolver';
+import { makeApisTagOperation } from './interfaces';
 Swagger.execute = execute;
 Swagger.resolve = Resolver;
 Swagger.makeApisTagOperation = makeApisTagOperation;
