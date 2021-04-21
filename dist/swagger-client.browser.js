@@ -4052,14 +4052,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cross_fetch_polyfill__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(cross_fetch_polyfill__WEBPACK_IMPORTED_MODULE_15__);
 /* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(129);
 /* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var js_yaml__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(7180);
-/* harmony import */ var lodash_pick__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(8718);
-/* harmony import */ var lodash_pick__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(lodash_pick__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var lodash_isFunction__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(3560);
-/* harmony import */ var lodash_isFunction__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(lodash_isFunction__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var buffer__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(8764);
-/* harmony import */ var _internal_form_data_monkey_patch__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(137);
-/* harmony import */ var _execute_oas3_style_serializer__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(6262);
+/* harmony import */ var lodash_pick__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(8718);
+/* harmony import */ var lodash_pick__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(lodash_pick__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var lodash_isFunction__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(3560);
+/* harmony import */ var lodash_isFunction__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(lodash_isFunction__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var buffer__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(8764);
+/* harmony import */ var _internal_form_data_monkey_patch__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(137);
+/* harmony import */ var _execute_oas3_style_serializer__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(6262);
 
 
 
@@ -4077,7 +4076,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* global fetch */
-
 
 
 
@@ -4255,11 +4253,8 @@ var shouldDownloadAsText = function shouldDownloadAsText() {
 };
 
 function parseBody(body, contentType) {
-  if (contentType && (contentType.indexOf('application/json') === 0 || contentType.indexOf('+json') > 0)) {
-    return JSON.parse(body);
-  }
-
-  return js_yaml__WEBPACK_IMPORTED_MODULE_17__.default.load(body);
+  // Context is always json from Shadow, we remove yaml parser
+  return JSON.parse(body);
 } // Serialize the response, returns a promise with headers and the body part of the hash
 
 
@@ -4311,7 +4306,7 @@ function serializeHeaders() {
   var _context;
 
   var headers = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  if (!lodash_isFunction__WEBPACK_IMPORTED_MODULE_19___default()(_babel_runtime_corejs3_core_js_stable_instance_entries__WEBPACK_IMPORTED_MODULE_6___default()(headers))) return {};
+  if (!lodash_isFunction__WEBPACK_IMPORTED_MODULE_18___default()(_babel_runtime_corejs3_core_js_stable_instance_entries__WEBPACK_IMPORTED_MODULE_6___default()(headers))) return {};
   return _babel_runtime_corejs3_core_js_stable_instance_reduce__WEBPACK_IMPORTED_MODULE_7___default()(_context = _babel_runtime_corejs3_core_js_stable_array_from__WEBPACK_IMPORTED_MODULE_8___default()(_babel_runtime_corejs3_core_js_stable_instance_entries__WEBPACK_IMPORTED_MODULE_6___default()(headers).call(headers))).call(_context, function (acc, _ref2) {
     var _ref3 = (0,_babel_runtime_corejs3_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__.default)(_ref2, 2),
         header = _ref3[0],
@@ -4345,7 +4340,7 @@ function isFile(obj, navigatorObj) {
     return true;
   }
 
-  if (typeof buffer__WEBPACK_IMPORTED_MODULE_20__.Buffer !== 'undefined' && obj instanceof buffer__WEBPACK_IMPORTED_MODULE_20__.Buffer) {
+  if (typeof buffer__WEBPACK_IMPORTED_MODULE_19__.Buffer !== 'undefined' && obj instanceof buffer__WEBPACK_IMPORTED_MODULE_19__.Buffer) {
     return true;
   }
 
@@ -4411,7 +4406,7 @@ function formatKeyValue(key, input) {
     if ([(0,_babel_runtime_corejs3_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__.default)(encoding.style), (0,_babel_runtime_corejs3_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__.default)(encoding.explode), (0,_babel_runtime_corejs3_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__.default)(encoding.allowReserved)].some(function (type) {
       return type !== 'undefined';
     })) {
-      return formatKeyValueBySerializationOption(key, value, skipEncoding, lodash_pick__WEBPACK_IMPORTED_MODULE_18___default()(encoding, ['style', 'explode', 'allowReserved']));
+      return formatKeyValueBySerializationOption(key, value, skipEncoding, lodash_pick__WEBPACK_IMPORTED_MODULE_17___default()(encoding, ['style', 'explode', 'allowReserved']));
     }
 
     if (encoding.contentType) {
@@ -4470,7 +4465,7 @@ function formatKeyValueBySerializationOption(key, value, skipEncoding, serializa
   var escape = skipEncoding ? false : serializationOption && serializationOption.allowReserved ? 'unsafe' : 'reserved';
 
   var encodeFn = function encodeFn(v) {
-    return (0,_execute_oas3_style_serializer__WEBPACK_IMPORTED_MODULE_22__.encodeDisallowedCharacters)(v, {
+    return (0,_execute_oas3_style_serializer__WEBPACK_IMPORTED_MODULE_21__.encodeDisallowedCharacters)(v, {
       escape: escape
     });
   };
@@ -4478,7 +4473,7 @@ function formatKeyValueBySerializationOption(key, value, skipEncoding, serializa
   var encodeKeyFn = skipEncoding ? function (k) {
     return k;
   } : function (k) {
-    return (0,_execute_oas3_style_serializer__WEBPACK_IMPORTED_MODULE_22__.encodeDisallowedCharacters)(k, {
+    return (0,_execute_oas3_style_serializer__WEBPACK_IMPORTED_MODULE_21__.encodeDisallowedCharacters)(k, {
       escape: escape
     });
   }; // Primitive
@@ -4575,7 +4570,7 @@ function buildFormData(reqForm) {
     }
 
     return formData;
-  }, new _internal_form_data_monkey_patch__WEBPACK_IMPORTED_MODULE_21__.default());
+  }, new _internal_form_data_monkey_patch__WEBPACK_IMPORTED_MODULE_20__.default());
 } // Encodes an object using appropriate serializer.
 
 

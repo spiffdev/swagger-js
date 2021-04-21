@@ -17,7 +17,6 @@ import 'cross-fetch/polyfill';
 /* global fetch */
 
 import qs from 'qs';
-import jsYaml from 'js-yaml';
 import pick from 'lodash/pick';
 import isFunction from 'lodash/isFunction';
 import { Buffer } from 'buffer';
@@ -193,11 +192,8 @@ export var shouldDownloadAsText = function shouldDownloadAsText() {
 };
 
 function parseBody(body, contentType) {
-  if (contentType && (contentType.indexOf('application/json') === 0 || contentType.indexOf('+json') > 0)) {
-    return JSON.parse(body);
-  }
-
-  return jsYaml.load(body);
+  // Context is always json from Shadow, we remove yaml parser
+  return JSON.parse(body);
 } // Serialize the response, returns a promise with headers and the body part of the hash
 
 
