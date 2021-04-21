@@ -7,14 +7,11 @@ import _Promise from "@babel/runtime-corejs3/core-js-stable/promise";
 import _Object$keys from "@babel/runtime-corejs3/core-js-stable/object/keys";
 import _mapInstanceProperty from "@babel/runtime-corejs3/core-js-stable/instance/map";
 import _reduceInstanceProperty from "@babel/runtime-corejs3/core-js-stable/instance/reduce";
-import { fetch } from 'cross-fetch';
-import jsYaml from 'js-yaml';
 import qs from 'querystring-browser';
 import url from 'url';
 import lib from '.';
 import createError from './create-error';
 import { isFreelyNamed, absolutifyPointer } from '../helpers';
-import { ACCEPT_HEADER_VALUE_FOR_DOCUMENTS } from '../../constants';
 var ABSOLUTE_URL_REGEXP = new RegExp('^([a-z]+://|//)', 'i');
 var JSONRefError = createError('JSONRefError', function cb(message, extra, oriError) {
   this.originalError = oriError;
@@ -244,7 +241,6 @@ var mod = _Object$assign(plugin, {
   getDoc: getDoc,
   split: split,
   extractFromDoc: extractFromDoc,
-  fetchJSON: fetchJSON,
   extract: extract,
   jsonPointerToArray: jsonPointerToArray,
   unescapeJsonPointerToken: unescapeJsonPointerToken
@@ -365,35 +361,9 @@ function getDoc(docPath) {
 
   if (val) {
     return lib.isPromise(val) ? val : _Promise.resolve(val);
-  } // NOTE: we need to use `mod.fetchJSON` in order to be able to overwrite it.
-  // Any tips on how to make this cleaner, please ping!
+  }
 
-
-  docCache[docPath] = mod.fetchJSON(docPath).then(function (doc) {
-    docCache[docPath] = doc;
-    return doc;
-  });
   return docCache[docPath];
-}
-/**
- * Fetches a document.
- * @param  {String} docPath the absolute URL of the document.
- * @return {Promise}        a promise of the document content.
- * @api public
- */
-
-
-function fetchJSON(docPath) {
-  return fetch(docPath, {
-    headers: {
-      Accept: ACCEPT_HEADER_VALUE_FOR_DOCUMENTS
-    },
-    loadSpec: true
-  }).then(function (res) {
-    return res.text();
-  }).then(function (text) {
-    return jsYaml.load(text);
-  });
 }
 /**
  * Extracts a pointer from an object.

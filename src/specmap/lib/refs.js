@@ -1,12 +1,9 @@
-import { fetch } from 'cross-fetch';
-import jsYaml from 'js-yaml';
 import qs from 'querystring-browser';
 import url from 'url';
 
 import lib from '.';
 import createError from './create-error';
 import { isFreelyNamed, absolutifyPointer } from '../helpers';
-import { ACCEPT_HEADER_VALUE_FOR_DOCUMENTS } from '../../constants';
 
 const ABSOLUTE_URL_REGEXP = new RegExp('^([a-z]+://|//)', 'i');
 
@@ -252,7 +249,6 @@ const mod = Object.assign(plugin, {
   getDoc,
   split,
   extractFromDoc,
-  fetchJSON,
   extract,
   jsonPointerToArray,
   unescapeJsonPointerToken,
@@ -360,26 +356,7 @@ function getDoc(docPath) {
   if (val) {
     return lib.isPromise(val) ? val : Promise.resolve(val);
   }
-
-  // NOTE: we need to use `mod.fetchJSON` in order to be able to overwrite it.
-  // Any tips on how to make this cleaner, please ping!
-  docCache[docPath] = mod.fetchJSON(docPath).then((doc) => {
-    docCache[docPath] = doc;
-    return doc;
-  });
   return docCache[docPath];
-}
-
-/**
- * Fetches a document.
- * @param  {String} docPath the absolute URL of the document.
- * @return {Promise}        a promise of the document content.
- * @api public
- */
-function fetchJSON(docPath) {
-  return fetch(docPath, { headers: { Accept: ACCEPT_HEADER_VALUE_FOR_DOCUMENTS }, loadSpec: true })
-    .then((res) => res.text())
-    .then((text) => jsYaml.load(text));
 }
 
 /**

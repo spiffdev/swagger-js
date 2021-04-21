@@ -13,9 +13,6 @@ import _Object$keys from "@babel/runtime-corejs3/core-js-stable/object/keys";
 import _concatInstanceProperty from "@babel/runtime-corejs3/core-js-stable/instance/concat";
 import _Object$entries from "@babel/runtime-corejs3/core-js-stable/object/entries";
 import _filterInstanceProperty from "@babel/runtime-corejs3/core-js-stable/instance/filter";
-import 'cross-fetch/polyfill';
-/* global fetch */
-
 import qs from 'qs';
 import pick from 'lodash/pick';
 import isFunction from 'lodash/isFunction';

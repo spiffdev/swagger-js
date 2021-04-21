@@ -1,4 +1,3 @@
-import 'cross-fetch/polyfill'; /* global fetch */
 import qs from 'qs';
 import pick from 'lodash/pick';
 import isFunction from 'lodash/isFunction';
